@@ -22,10 +22,22 @@ class Noisy_MNIST(Dataset):
         Clean_MNIST = datasets.MNIST(self.data_loc, train=Train, download=True)
         # reshuffle the test set to have digits 0-9 at the start
         data = Clean_MNIST.data.unsqueeze(1)
-        
-        # 2) apply test reordering only for the test split
-        if self.split == 'test':
-            idx = torch.load(r'assignment1_data\assignment1_data\test_idx.tar')
+        targets = Clean_MNIST.targets # Grab the targets explicitly so slice becomes possible
+
+        # Adequate splitting logic:
+        # 1. Training encompasses the first 50k      
+        if self.split == 'train':
+            # Keep the first 50,000 for training
+            data = data[:50000]
+            targets = targets[:50000]
+        # 2. Validation holds the remaining 10k
+        elif self.split == 'valid':
+            data = data[50000:]
+            targets = targets[50000:]
+
+        # 3. Test    
+        elif self.split == 'test':
+            idx = torch.load(r'Assignment 1\Denoise-handwritten-digits-using-FCN\assignment1_data\assignment1_data\test_idx.tar')
             data[:, :] = data[idx, :]
           
         # reshape and normalize
