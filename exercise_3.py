@@ -969,7 +969,7 @@ class Noisy_Image_Identifier_Net(nn.Module):
 # 4. Fourth block -  1.3.j) - EXECUTABLE
 
 if __name__ == "__main__":
-
+    pass
 ## How to run the code?
 ## 1. Uncomment and consequently run the block(s) of code depending upon the result(s) you want to get;
 ## 2. Keep in mind that some blocks are inextricably linked so running a particular block of code might mean uncommenting other;
@@ -1062,13 +1062,15 @@ if __name__ == "__main__":
 # )
 
 # _, _, original_report = fit.activate_Adversial_Mode(
-#     path=[detector, denoiser]
+#     path=[detector, denoiser],
+#     show=False
 # )
 # original_change = original_report["likelihood_change_noisy_space"]
 
 # _, _, super_detector_report = fit.activate_Adversial_Mode(
 #     path=[super_detector, denoiser],
-#     baseline_change=original_change
+#     baseline_change=original_change,
+#     show=False
 # )
 # super_detector_change = super_detector_report["likelihood_change_noisy_space"]
 
@@ -1080,6 +1082,7 @@ if __name__ == "__main__":
 #     ],
 #     save_dir=path_1_3_3
 # )
+
 # Uncomment the part above ^^^^^^^^^^^^^^^^^ Uncomment the part above
 # Uncomment the part above ||||||||||||||||| Uncomment the part above# 
 # -------- Fourth Block -------- #
