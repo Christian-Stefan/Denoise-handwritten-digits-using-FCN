@@ -965,9 +965,8 @@ class Noisy_Image_Identifier_Net(nn.Module):
 # For the sake of simplicitly I divided the entire code in executable blocks, each corresponding to following tasks:
 # 1. First block - 1.3.a); 1.3.b); 1.3.c); 1.4.d) - EXECUTABLE
 # 2. Second block - 1.3.e) 1.3.f); 1.3.g) - EXECUTABLE
-# 3. Third block - 1.3.h) -EXECUTABLE
-# 4. Fourth block -  1.3.i) - EXECUTABLE, but comes along with live training;
-# 5. Fifth block - 1.3.j) - EXECUTABLE
+# 3. Third block - 1.3.h), 1.3.i) -EXECUTABLE, but comes along with live training;
+# 4. Fourth block -  1.3.j) - EXECUTABLE
 
 if __name__ == "__main__":
 
@@ -1009,6 +1008,7 @@ if __name__ == "__main__":
 
 # -------- Third Block -------- #
 # To avoid prolonged waiting time please directly open up this location in the folder hierarchy ('assignment_1_...\Submission\exercise1.3_finalpart_results\final_alpha.png; medium_sized_alpha.png'...)
+# Please keep in mind that the super denoiser has been already trained with a default alpha = 0.1.
 # Uncomment the part bellow ||||||||||||||| Uncomment the part bellow
 # Uncomment the part bellow vvvvvvvvvvvvvvv Uncomment the part bellow
     
@@ -1050,58 +1050,36 @@ if __name__ == "__main__":
 # Uncomment the part above ||||||||||||||||| Uncomment the part above# 
 # -------- Third Block -------- #
 
-# ----------------------------------------------------- Third Block ------------------------------------------------------------
-#  # 1.3.j)
 
-# _, _, super_detector_report = fit.activate_Adversial_Mode(
-#     path=[
-#         r"training_Super_detector_submission\training_Super_detector\training_Super_detectormodel_weights_epoch19.pth",
-#         r"train_denoiser_3_submission\train_denoiser\train_denoisermodel_weights_epoch19.pth"
-#     ],
-#     baseline_change=original_change
+# -------- Fourth Block -------- #
+# Uncomment the part bellow ||||||||||||||| Uncomment the part bellow
+# Uncomment the part bellow vvvvvvvvvvvvvvv Uncomment the part bellow
+
+#     fit = Fit_Predict(
+#     batch_size=64,
+#     mode="adversial",
+#     data_loc=r"/DataSets"
 # )
 
+# _, _, original_report = fit.activate_Adversial_Mode(
+#     path=[detector, denoiser]
+# )
+# original_change = original_report["likelihood_change_noisy_space"]
+
+# _, _, super_detector_report = fit.activate_Adversial_Mode(
+#     path=[super_detector, denoiser],
+#     baseline_change=original_change
+# )
 # super_detector_change = super_detector_report["likelihood_change_noisy_space"]
 
 # _, _, super_denoiser_report = fit.activate_Adversial_Mode(
-#     path=[
-#         r"training_Super_detector_submission\training_Super_detector\training_Super_detectormodel_weights_epoch19.pth",
-#         r"training_Super_denoiser\training_Super_denoiser\training_Super_denoisermodel_weights_epoch19.pth"
-#     ],
+#     path=[super_detector, super_denoiser],
 #     baseline_change=[
 #         original_change,
 #         super_detector_change
-#     ]
+#     ],
+#     save_dir=path_1_3_3
 # )
-
-# ----------------------------------------------------- Third Block ------------------------------------------------------------
-
-# ----------------------------------------------------- Fourth Block ------------------------------------------------------------
-#  1.3.i), 1.3.j;
-
-    fit = Fit_Predict(
-    batch_size=64,
-    mode="adversial",
-    data_loc=r"/DataSets"
-)
-
-_, _, original_report = fit.activate_Adversial_Mode(
-    path=[detector, denoiser]
-)
-original_change = original_report["likelihood_change_noisy_space"]
-
-_, _, super_detector_report = fit.activate_Adversial_Mode(
-    path=[super_detector, denoiser],
-    baseline_change=original_change
-)
-super_detector_change = super_detector_report["likelihood_change_noisy_space"]
-
-_, _, super_denoiser_report = fit.activate_Adversial_Mode(
-    path=[super_detector, super_denoiser],
-    baseline_change=[
-        original_change,
-        super_detector_change
-    ],
-    save_dir=path_1_3_3
-)
-# ----------------------------------------------------- Fourth Block ------------------------------------------------------------
+# Uncomment the part above ^^^^^^^^^^^^^^^^^ Uncomment the part above
+# Uncomment the part above ||||||||||||||||| Uncomment the part above# 
+# -------- Fourth Block -------- #
