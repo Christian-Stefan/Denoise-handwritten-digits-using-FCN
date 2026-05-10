@@ -1012,39 +1012,39 @@ if __name__ == "__main__":
 # Uncomment the part bellow ||||||||||||||| Uncomment the part bellow
 # Uncomment the part bellow vvvvvvvvvvvvvvv Uncomment the part bellow
     
-# fit = Fit_Predict(
-# batch_size=64,
-# mode='training_Super_denoiser',
-# data_loc=r"/DataSets"
-# )
+fit = Fit_Predict(
+batch_size=64,
+mode='training_Super_denoiser',
+data_loc=r"/DataSets"
+)
 
-# super_denoiser, frozen_detector = fit.activate_Super_Training_Denoiser_Mode(
-#     epochs=20,
-#     alpha=0.1,
-#     detector_path=super_detector,
-#     denoiser_path=denoiser)
+super_denoiser, frozen_detector = fit.activate_Super_Training_Denoiser_Mode(
+    epochs=20,
+    alpha=0.1,
+    detector_path=super_detector,
+    denoiser_path=denoiser)
 
-# super_denoiser, frozen_detector = fit.activate_Super_Training_Denoiser_Mode(
-#     epochs=20,
-#     alpha=0.05,
-#     detector_path=r"Submission\exercise1.3_finalpart_results\training_Super_detector_submission\training_Super_detector\training_Super_detectormodel_weights_epoch19.pth",
-#     denoiser_path=r"Submission\exercise1.3_finalpart_results\train_denoiser_3_submission\train_denoiser\train_denoisermodel_weights_epoch19.pth"
-# )
+super_denoiser, frozen_detector = fit.activate_Super_Training_Denoiser_Mode(
+    epochs=20,
+    alpha=0.05,
+    detector_path=r"Submission\exercise1.3_finalpart_results\training_Super_detector_submission\training_Super_detector\training_Super_detectormodel_weights_epoch19.pth",
+    denoiser_path=r"Submission\exercise1.3_finalpart_results\train_denoiser_3_submission\train_denoiser\train_denoisermodel_weights_epoch19.pth"
+)
 
 
-# super_denoiser, frozen_detector = fit.activate_Super_Training_Denoiser_Mode(
-#     epochs=20,
-#     alpha=0.5,
-#     detector_path=r"Submission\exercise1.3_finalpart_results\training_Super_detector_submission\training_Super_detector\training_Super_detectormodel_weights_epoch19.pth",
-#     denoiser_path=r"Submission\exercise1.3_finalpart_results\train_denoiser_3_submission\train_denoiser\train_denoisermodel_weights_epoch19.pth"
-# )
+super_denoiser, frozen_detector = fit.activate_Super_Training_Denoiser_Mode(
+    epochs=20,
+    alpha=0.5,
+    detector_path=r"Submission\exercise1.3_finalpart_results\training_Super_detector_submission\training_Super_detector\training_Super_detectormodel_weights_epoch19.pth",
+    denoiser_path=r"Submission\exercise1.3_finalpart_results\train_denoiser_3_submission\train_denoiser\train_denoisermodel_weights_epoch19.pth"
+)
 
-# super_denoiser, frozen_detector = fit.activate_Super_Training_Denoiser_Mode(
-#     epochs=20,
-#     alpha=0.8,
-#     detector_path=r"Submission\exercise1.3_finalpart_results\training_Super_detector_submission\training_Super_detector\training_Super_detectormodel_weights_epoch19.pth",
-#     denoiser_path=r"Submission\exercise1.3_finalpart_results\train_denoiser_3_submission\train_denoiser\train_denoisermodel_weights_epoch19.pth"
-# )
+super_denoiser, frozen_detector = fit.activate_Super_Training_Denoiser_Mode(
+    epochs=20,
+    alpha=0.8,
+    detector_path=r"Submission\exercise1.3_finalpart_results\training_Super_detector_submission\training_Super_detector\training_Super_detectormodel_weights_epoch19.pth",
+    denoiser_path=r"Submission\exercise1.3_finalpart_results\train_denoiser_3_submission\train_denoiser\train_denoisermodel_weights_epoch19.pth"
+)
 
 # Uncomment the part above ^^^^^^^^^^^^^^^^^ Uncomment the part above
 # Uncomment the part above ||||||||||||||||| Uncomment the part above# 
