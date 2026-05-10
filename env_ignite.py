@@ -1,11 +1,41 @@
 from dotenv import load_dotenv
+from pathlib import Path
 import os
 
-load_dotenv()
-detector = os.getenv('detector')
-denoiser = os.getenv('denoiser')
-super_detector = os.getenv('super_detector')
-super_denoiser = os.getenv('super_denoiser')
-path_1_3_1 = os.getenv('1_3_1_path')
-path_1_3_2 = os.getenv('1_3_2_path')
-path_1_3_3 = os.getenv('1_3_3_path')
+BASE_DIR = Path(__file__).resolve().parent
+ENV_PATH = BASE_DIR / ".env"
+
+print("BASE_DIR:", BASE_DIR)
+print("ENV_PATH:", ENV_PATH)
+print("ENV exists:", ENV_PATH.exists())
+
+load_dotenv(ENV_PATH)
+
+print("RAW detector:", repr(os.getenv("detector")))
+
+def resolve_env_path(key):
+    value = os.getenv(key)
+
+    if value is None:
+        raise ValueError(f"Missing environment variable: {key}")
+
+    path = Path(value)
+
+    # If path is already absolute, keep it.
+    # If relative, resolve it relative to BASE_DIR.
+    if not path.is_absolute():
+        path = BASE_DIR / path
+
+    return str(path)
+
+detector = resolve_env_path("detector")
+denoiser = resolve_env_path("denoiser")
+super_detector = resolve_env_path("super_detector")
+super_denoiser = resolve_env_path("super_denoiser")
+
+defaultFCN_hist_path = resolve_env_path("defaultFCN_hist_path")
+defaultFCN_weight_path = resolve_env_path("defaultFCN_weight_path")
+
+path_1_3_1 = resolve_env_path("path_1_3_1")
+path_1_3_2 = resolve_env_path("path_1_3_2")
+path_1_3_3 = resolve_env_path("path_1_3_3")
