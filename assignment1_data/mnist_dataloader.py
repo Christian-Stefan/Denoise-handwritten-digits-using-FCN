@@ -16,7 +16,7 @@ class Noisy_MNIST(Dataset):
         self.noise = noise
         self.transform = transform
 
-        Train = (self.split in ['train'])
+        Train = (self.split in ['train', 'valid'])
 
         # get the original MNIST dataset
         Clean_MNIST = datasets.MNIST(self.data_loc, train=Train, download=True)
@@ -27,28 +27,27 @@ class Noisy_MNIST(Dataset):
         # Adequate splitting logic:
         # 1. Training encompasses the first 50k      
         if self.split == 'train':
-            # Keep the first 50,000 for training
             data = data[:50000]
             targets = targets[:50000]
-        # 2. Validation holds the remaining 10k
+
         elif self.split == 'valid':
             data = data[50000:]
             targets = targets[50000:]
 
-        # 3. Test    
         elif self.split == 'test':
-            idx = torch.load(r'Assignment 1\Denoise-handwritten-digits-using-FCN\assignment1_data\assignment1_data\test_idx.tar')
-            data[:, :] = data[idx, :]
-          
+            idx = torch.load(r'assignment_1_[2036967]_[2036967]\Submission\assignment1_data\test_idx.tar')
+            data = data[idx]
+            targets = targets[idx]
+
         # reshape and normalize
         resizer = transforms.Resize(32)
-        resized_data = resizer(data)*1.0
-        normalized_data = 2 *(resized_data/255) - 1
+        resized_data = resizer(data) * 1.0
+        normalized_data = 2 * (resized_data / 255) - 1
 
-        # create the data
         self.Clean_Images = normalized_data
         self.Noisy_Images = normalized_data + torch.randn(normalized_data.size()) * self.noise
-        self.Labels = Clean_MNIST.targets
+        self.Labels = targets
+
 
     def __len__(self):
         return self.Labels.size(0)
