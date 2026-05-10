@@ -969,7 +969,91 @@ class Noisy_Image_Identifier_Net(nn.Module):
 # 4. Fourth block -  1.3.j) - EXECUTABLE
 
 if __name__ == "__main__":
-    pass
+    import argparse
+from env_loader import (
+    detector,
+    denoiser,
+    super_detector,
+    super_denoiser,
+    path_1_3_1,
+    path_1_3_2,
+    path_1_3_3
+)
+
+if __name__ == "__main__":
+
+    parser = argparse.ArgumentParser()
+    parser.add_argument(
+        "--load",
+        action="store_true",
+        help="Load saved weights/results and generate figures without retraining."
+    )
+
+    args = parser.parse_args()
+
+    if args.load:
+        print("Running exercise_3.py in --load mode.")
+
+        fit = Fit_Predict(
+            batch_size=64,
+            mode="adversial",
+            data_loc=r"/DataSets"
+        )
+
+        # First block: original detector + original denoiser
+        _, _, original_report = fit.activate_Adversial_Mode(
+            path=[detector, denoiser],
+            save_dir=path_1_3_1,
+            prefix="exercise_1_3_original",
+            show=False
+        )
+
+        original_change = original_report["likelihood_change_noisy_space"]
+
+        # Second block: super detector + original denoiser
+        _, _, super_detector_report = fit.activate_Adversial_Mode(
+            path=[super_detector, denoiser],
+            baseline_change=original_change,
+            save_dir=path_1_3_2,
+            prefix="exercise_1_3_super_detector",
+            show=False
+        )
+
+        super_detector_change = super_detector_report["likelihood_change_noisy_space"]
+
+        # Fourth block: super detector + super denoiser
+        _, _, super_denoiser_report = fit.activate_Adversial_Mode(
+            path=[super_detector, super_denoiser],
+            baseline_change=[
+                original_change,
+                super_detector_change
+            ],
+            save_dir=path_1_3_3,
+            prefix="exercise_1_3_super_denoiser",
+            show=False
+        )
+
+        print("Saved-result figures generated successfully.")
+
+    else:
+        print("Running exercise_3.py without --load.")
+        print("This branch should train/recreate saved files.")
+
+        fit = Fit_Predict(
+            batch_size=64,
+            mode="training_Super_denoiser",
+            data_loc=r"/DataSets"
+        )
+
+        fit.activate_Super_Training_Denoiser_Mode(
+            epochs=20,
+            alpha=0.1,
+            detector_path=super_detector,
+            denoiser_path=denoiser
+        )
+
+        print("Training completed.")
+        
 ## How to run the code?
 ## 1. Uncomment and consequently run the block(s) of code depending upon the result(s) you want to get;
 ## 2. Keep in mind that some blocks are inextricably linked so running a particular block of code might mean uncommenting other;
@@ -1012,39 +1096,39 @@ if __name__ == "__main__":
 # Uncomment the part bellow ||||||||||||||| Uncomment the part bellow
 # Uncomment the part bellow vvvvvvvvvvvvvvv Uncomment the part bellow
     
-fit = Fit_Predict(
-batch_size=64,
-mode='training_Super_denoiser',
-data_loc=r"/DataSets"
-)
+# fit = Fit_Predict(
+# batch_size=64,
+# mode='training_Super_denoiser',
+# data_loc=r"/DataSets"
+# )
 
-super_denoiser, frozen_detector = fit.activate_Super_Training_Denoiser_Mode(
-    epochs=20,
-    alpha=0.1,
-    detector_path=super_detector,
-    denoiser_path=denoiser)
+# super_denoiser, frozen_detector = fit.activate_Super_Training_Denoiser_Mode(
+#     epochs=20,
+#     alpha=0.1,
+#     detector_path=super_detector,
+#     denoiser_path=denoiser)
 
-super_denoiser, frozen_detector = fit.activate_Super_Training_Denoiser_Mode(
-    epochs=20,
-    alpha=0.05,
-    detector_path=r"Submission\exercise1.3_finalpart_results\training_Super_detector_submission\training_Super_detector\training_Super_detectormodel_weights_epoch19.pth",
-    denoiser_path=r"Submission\exercise1.3_finalpart_results\train_denoiser_3_submission\train_denoiser\train_denoisermodel_weights_epoch19.pth"
-)
+# super_denoiser, frozen_detector = fit.activate_Super_Training_Denoiser_Mode(
+#     epochs=20,
+#     alpha=0.05,
+#     detector_path=r"Submission\exercise1.3_finalpart_results\training_Super_detector_submission\training_Super_detector\training_Super_detectormodel_weights_epoch19.pth",
+#     denoiser_path=r"Submission\exercise1.3_finalpart_results\train_denoiser_3_submission\train_denoiser\train_denoisermodel_weights_epoch19.pth"
+# )
 
 
-super_denoiser, frozen_detector = fit.activate_Super_Training_Denoiser_Mode(
-    epochs=20,
-    alpha=0.5,
-    detector_path=r"Submission\exercise1.3_finalpart_results\training_Super_detector_submission\training_Super_detector\training_Super_detectormodel_weights_epoch19.pth",
-    denoiser_path=r"Submission\exercise1.3_finalpart_results\train_denoiser_3_submission\train_denoiser\train_denoisermodel_weights_epoch19.pth"
-)
+# super_denoiser, frozen_detector = fit.activate_Super_Training_Denoiser_Mode(
+#     epochs=20,
+#     alpha=0.5,
+#     detector_path=r"Submission\exercise1.3_finalpart_results\training_Super_detector_submission\training_Super_detector\training_Super_detectormodel_weights_epoch19.pth",
+#     denoiser_path=r"Submission\exercise1.3_finalpart_results\train_denoiser_3_submission\train_denoiser\train_denoisermodel_weights_epoch19.pth"
+# )
 
-super_denoiser, frozen_detector = fit.activate_Super_Training_Denoiser_Mode(
-    epochs=20,
-    alpha=0.8,
-    detector_path=r"Submission\exercise1.3_finalpart_results\training_Super_detector_submission\training_Super_detector\training_Super_detectormodel_weights_epoch19.pth",
-    denoiser_path=r"Submission\exercise1.3_finalpart_results\train_denoiser_3_submission\train_denoiser\train_denoisermodel_weights_epoch19.pth"
-)
+# super_denoiser, frozen_detector = fit.activate_Super_Training_Denoiser_Mode(
+#     epochs=20,
+#     alpha=0.8,
+#     detector_path=r"Submission\exercise1.3_finalpart_results\training_Super_detector_submission\training_Super_detector\training_Super_detectormodel_weights_epoch19.pth",
+#     denoiser_path=r"Submission\exercise1.3_finalpart_results\train_denoiser_3_submission\train_denoiser\train_denoisermodel_weights_epoch19.pth"
+# )
 
 # Uncomment the part above ^^^^^^^^^^^^^^^^^ Uncomment the part above
 # Uncomment the part above ||||||||||||||||| Uncomment the part above# 
