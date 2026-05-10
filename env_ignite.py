@@ -35,6 +35,10 @@ super_denoiser = resolve_env_path("super_denoiser")
 
 defaultFCN_hist_path = resolve_env_path("defaultFCN_hist_path")
 defaultFCN_weight_path = resolve_env_path("defaultFCN_weight_path")
+complexFCN_hist_path = resolve_env_path("complexFCN_hist_path")
+complexFCN_weight_path = resolve_env_path("complexFCN_weight_path")
+lowFCN_hist_path = resolve_env_path("lowFCN_hist_path")
+low_weight_path = resolve_env_path("low_weight_path")
 
 path_1_3_1 = resolve_env_path("path_1_3_1")
 path_1_3_2 = resolve_env_path("path_1_3_2")

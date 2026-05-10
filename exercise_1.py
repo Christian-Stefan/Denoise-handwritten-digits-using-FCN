@@ -300,9 +300,12 @@ if __name__ == "__main__":
 
     # 1.1.g)
     model = BasicFCN(activation=activation_def, width=width_default)
-    # training(model, loc, batch_size, basisc_transf, 
-    #                     activation_def, width_default, epochs, 
-    #                     model_label="Default Model", AUTOMATIC=False, saving_path=defaultFCN_hist_path)
+    training(model, loc, batch_size, basisc_transf, 
+                        activation_def, width_default, epochs, 
+                        model_label="Default Model", AUTOMATIC=True, saving_path=defaultFCN_hist_path)
+    
+    # 1.1.h)
+    
     
     training(model, loc, batch_size, basisc_transf, 
                         activation_comp, width_complex, epochs, 
