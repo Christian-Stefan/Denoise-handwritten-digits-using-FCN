@@ -208,7 +208,9 @@ if __name__ == "__main__":
     import argparse
     from env_ignite import (
         defaultFCN_det_weight,
-        defaultFCN_det_hist
+        defaultFCN_det_hist,
+        compFCN_det_weight,
+        compFCN_det_hist
     )
 
     # Training variables
@@ -260,16 +262,21 @@ if __name__ == "__main__":
         model = Noisy_Image_Identifier_Net(activation=activation_comp, width=width_complex)
         training(model, loc, batch_size, basisc_transf, 
                             activation_def, width_default, epochs, 
-                            model_label="Complex Model Detector", AUTOMATIC=True, saving_path=defaultFCN_hist_path)
+                            model_label="Complex Model Detector", AUTOMATIC=True, saving_path=compFCN_det_hist)
 
         model = Noisy_Image_Identifier_Net(activation=activation_low, width=width_low)
         training(model, loc, batch_size, basisc_transf, 
                             activation_def, width_default, epochs, 
                             model_label="Low Model Detector", AUTOMATIC=True, saving_path=defaultFCN_hist_path)
+        
+        
+        ctypes.windll.user32.MessageBoxW(0, "3+4). Having acquired a significantly high accuracy score after the completion of the first epoch prompted me to question and closely examine the training loop to see if I accidentally built in any flaws that might have caused an artificial inflation of the score and over-optimistic performance. However, after changing the noise argument in MNIST_loader to 0.1 to make the images hold less noise and thus make the detector's mission more difficult, I observed a major decrease in accuracy. Based on this, I concluded that irrespective of the model architecture differences between corrupted and not corrupted with noise images, it remains a trivial task when the injected noise comes in big quantities (e.g., noise = 0.5).","Answers to the second batch of questions",1)
 
     else:
+        ctypes.windll.user32.MessageBoxW(0, "1+2). Two things are to be replaced in the previous architecture: Add a new output layer holding only one neuron and equipping it with a sigmoid function as activation output.","Answers to the first batch of questions",1)
+
         print("Running manually...")
-                model = Noisy_Image_Identifier_Net(activation=activation_def, width=width_default)
+        model = Noisy_Image_Identifier_Net(activation=activation_def, width=width_default)
         training(model, loc, batch_size, basisc_transf, 
                             activation_def, width_default, epochs, 
                             model_label="Default Model Detector", AUTOMATIC=True, saving_path=defaultFCN_det_hist)
@@ -277,9 +284,11 @@ if __name__ == "__main__":
         model = Noisy_Image_Identifier_Net(activation=activation_comp, width=width_complex)
         training(model, loc, batch_size, basisc_transf, 
                             activation_def, width_default, epochs, 
-                            model_label="Complex Model Detector", AUTOMATIC=True, saving_path=defaultFCN_hist_path)
+                            model_label="Complex Model Detector", AUTOMATIC=True, saving_path=compFCN_det_hist)
 
         model = Noisy_Image_Identifier_Net(activation=activation_low, width=width_low)
         training(model, loc, batch_size, basisc_transf, 
                             activation_def, width_default, epochs, 
-                            model_label="Low Model Detector", AUTOMATIC=True, saving_path=defaultFCN_hist_path)
+                            model_label="Low Model Detector", AUTOMATIC=False, saving_path=defaultFCN_hist_path)
+
+        ctypes.windll.user32.MessageBoxW(0, "3+4). Having acquired a significantly high accuracy score after the completion of the first epoch prompted me to question and closely examine the training loop to see if I accidentally built in any flaws that might have caused an artificial inflation of the score and over-optimistic performance. However, after changing the noise argument in MNIST_loader to 0.1 to make the images hold less noise and thus make the detector's mission more difficult, I observed a major decrease in accuracy. Based on this, I concluded that irrespective of the model architecture differences between corrupted and not corrupted with noise images, it remains a trivial task when the injected noise comes in big quantities (e.g., noise = 0.5).","Answers to the second batch of questions",1)
