@@ -44,6 +44,8 @@ defaultFCN_det_weight = resolve_env_path("defaultFCN_det_weight")
 defaultFCN_det_hist = resolve_env_path("defaultFCN_det_hist")
 compFCN_det_weight=resolve_env_path("compFCN_det_weight")
 compFCN_det_hist=resolve_env_path("compFCN_det_hist")
+lowFCN_det_hist=resolve_env_path("lowFCN_det_hist")
+lowFCN_det_weight=resolve_env_path("lowFCN_det_weight")
 
 path_1_3_1 = resolve_env_path("path_1_3_1")
 path_1_3_2 = resolve_env_path("path_1_3_2")
